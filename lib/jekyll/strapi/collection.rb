@@ -2,6 +2,10 @@ require "net/http"
 require "ostruct"
 require "json"
 
+class Object; def ensure_array; [self] end end
+class Array; def ensure_array; to_a end end
+class NilClass; def ensure_array; to_a end end
+
 module Jekyll
   module Strapi
     class StrapiCollection
@@ -26,7 +30,7 @@ module Jekyll
         response = Net::HTTP.get_response(uri)
         # Check response code
         if response.code == "200"
-          result = JSON.parse(response.body, object_class: OpenStruct)
+          result = JSON.parse(response.body, object_class: OpenStruct).ensure_array
         elsif response.code == "401"
           raise "The Strapi server sent a error with the following status: #{response.code}. Please make sure you authorized the API access in the Users & Permissions section of the Strapi admin panel."
         else
