@@ -5,7 +5,7 @@
 Add the "jekyll-strapi" gem to your Gemfile:
 
 ```
-gem "jekyll-strapi"
+gem "jekyll-strapi", github:itreptau/jekyll-strapi
 ```
 
 Then add "jekyll-strapi" to your plugins in `_config.yml`:
